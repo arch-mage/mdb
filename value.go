@@ -22,9 +22,9 @@ func decodeValue(file io.ReadSeeker, kind dataType, buff []byte) (val interface{
 	case typeMoney:
 		return nil, fmt.Errorf("data type %s is not implemented", kind)
 	case typeFloat:
-		return nil, fmt.Errorf("data type %s is not implemented", kind)
+		return math.Float32frombits(binary.LittleEndian.Uint32(buff[:4])), nil
 	case typeDouble:
-		return nil, fmt.Errorf("data type %s is not implemented", kind)
+		return math.Float64frombits(binary.LittleEndian.Uint64(buff[:8])), nil
 	case typeDateTime:
 		return decodeDateTime(buff), nil
 	case typeBinary:
