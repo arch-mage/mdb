@@ -18,6 +18,9 @@ type entry struct {
 
 func readCatalog(file io.ReadSeeker) (entries []entry, err error) {
 	def, err := readTdef(file, "MSysObjects", 2)
+	if err != nil {
+		return nil, err
+	}
 	iter := &iterator{file: file, def: def}
 	for {
 		fields, err := iter.next()
